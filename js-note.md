@@ -28,7 +28,7 @@ document.write("您的浏览器支持JavaScript脚本!");
 </script>
 ```
 
-> 注意：注释行结尾处的两条斜杠 `//` 是 JavaScript 注释符号。这可以避免 JavaScript 执行`-->`签。
+> 注意：注释行结尾处的两条斜杠 `//` 是 JavaScript 注释符号。这可以避免 JavaScript 执行`-->`标签。
 
 ### `let`的使用
 > 作用域规则：`let` 声明的变量只在其声明的块或子块中可用，这一点，与`var`相似。二者之间最主要的区别在于`var`声明的变量的作用域是**整个封闭函数**。
@@ -37,7 +37,7 @@ document.write("您的浏览器支持JavaScript脚本!");
 function varTest() {
     var x = 1;
     if (true) {
-        var x = 2;       // 同样的变量!
+        var x = 2;       // 同一个变量
         console.log(x);  // 2
     }
     console.log(x);  // 2
@@ -51,7 +51,7 @@ function letTest() {
     console.log(x);  // 1
 }
 ```
-
+> 未声明而直接赋值的变量，将作为window的一个属性
 ```javascript
 // num1为全局变量，num2为window的一个属性
 var num1 = 1;
@@ -78,7 +78,7 @@ function model(){
 function test() {
     console.log("test");
 }
-test();     //输出 "test arg0 + undefined"
+test();     //输出 "test arg0 + undefined"，因为下面这个同名函数把上面这个函数覆盖了
 
 function test(arg1) {
     console.log("test arg" + arguments.length + " + " + arg1);
@@ -97,15 +97,15 @@ function test(arg1) {
 test(1,2); //输出 1 2
 ```
 
-> **变量与函数重名的时候，变量生效**
+> **变量与函数重名的时候，变量生效**（变量提升）
 
 这涉及到了变量和函数的预解析：
 
 - 变量声明会被顶置，函数声明也会被顶置且比变量更先声明。
-- 变量的声明和赋值语句一起写时，JS引擎在解析时，会将其拆成声明和赋值2部分，声明置顶，赋值保留在原来位置。
+- 变量的声明和赋值语句一起写时，JS引擎在解析时，会将其拆成声明和赋值两部分，声明置顶，赋值保留在原来位置。
 - 声明过的变量不会再重复声明。
 
-```java
+```javascript
 var a = 100;
 function a() {
     return "function";
@@ -117,6 +117,14 @@ console.log(a());
 Uncaught TypeError: a is not a function
     (anonymous function) @test.html:9
 */
+//变量提升，函数优先于变量-----------------
+function a() {
+    return "function";
+}
+var a;				//与函数同名
+a = 100;
+console.log(a);     //输出 100
+console.log(a()); 	//报错, Uncaught TypeError: a is not a function
 ```
 
 > JS 中有两种函数，一种是普通函数，一种是函数对象。下面的这种就是“函数对象”，它实际上是声明一个匿名函数，然后将该函数的 init 方法赋值给该变量。
@@ -134,6 +142,14 @@ function() {
 }
 */
 console.log(a());   //输出 "function"
+//变量提升------------------------------
+var a;
+a = 100;
+a = function() {	//a被重新赋值了
+    return "function";
+}
+console.log(a);
+console.log(a());
 ```
 
 > **函数与内部变量重名**
@@ -151,7 +167,7 @@ function a() {
 }
 console.log(a);         //输出 function a {...}
 console.log(a());       //输出 "function"
-console.log(a);         //输出 1，上一行调用了a()，方法内a已经被改成1了
+console.log(a);         //输出1，上一行调用了a()方法，方法内a已经被改成1了
 console.log(v);
 /*
 输出
@@ -230,7 +246,7 @@ var car=null+"ok";    // 结果为nullok
 
 ### % 运算符
 
-取模运算的结果符号只与左边值的符号有关：
+取模运算的结果符号只与**左边值**的符号有关：
 
 -  如果 % 左边的操作数是正数，则模除的结果为正数或零；
 -  如果 % 左边的操作数是负数，则模除的结果为负数或零。
@@ -281,7 +297,7 @@ for (let x in nums) { // let修饰，x为局部变量
 
 ### for...of使用（ES6）
 
-> for-of 的语法看起来跟 for-in 很相似，但它的功能却丰富的多，它能循环很多东西。
+> for...of 的语法看起来跟 for-in 很相似，但它的功能却丰富的多，它能循环很多东西。
 
 ```javascript
 //循环一个数组Array
@@ -315,8 +331,8 @@ for (let value of iterable) {
 function myFunction(){
     var array = new Array();
     var x;
-    var txt=""
-    array[0] = 1;
+    var txt = "";
+    array[0] = 1;	//下标不连续
     array[3] = 2;
     array[4] = 3;
     array[10] = 4;
@@ -324,7 +340,7 @@ function myFunction(){
         alert(array[x]);     // 依次显示出 1 2 3 4
     } 
     alert(array.length);    // 结果是11
-    for( var i=0 ; i<4 ; i++){
+    for( var i = 0; i < 4; i++){
         alert(array[i]);     // 依次显示出 1 undefined undefined 2 
     }
 }
@@ -366,14 +382,21 @@ null == undefined            // true
 
 ### NaN
 
-1. NaN 是一个特殊的数值，NaN 即非数值（Not a Number），这个数值用于本来要返回数值的操作数未返回数值的情况,
+1. NaN 是一个特殊的数值，NaN 即非数值（Not a Number），这个数值用于**本来要返回数值的操作数未返回数值**的情况,
+
 2. NaN 与任何值都不相等，包括 NaN 本身。
+
+```javascript
+console.log(NaN == NaN); 	//false
+console.log(NaN === NaN); 	//false
+```
+
 3. 可以通过 isNaN() 方法来判断某个数值是否是NaN这个特殊的数，使用 isNaN() 方法会将传入的数值如果是非数值的会将其自动转换成数值类型，若能转换成数值类型，那么这个函数返回 false，若不能转换成数值类型，则这个数就是 NaN，即返回 true。
 
 ### try...catch
 
 ```javascript
-var txt=""; 
+var txt = ""; 
 function message() 
 { 
     try { 
@@ -393,7 +416,7 @@ function message()
 
 > JavaScript 中，函数及变量的声明都将被提升到函数的最顶部。
 
-> JavaScript 中变量的提升仅仅是声明部分，初始化的部分仍然在原处。且函数提升优先于变量
+> JavaScript 中变量的提升仅仅是声明部分，初始化的部分仍然在原处。且**函数提升优先于变量**，即函数会置于变量前。
 
 ```javascript
 var x = 5; // 初始化 x
@@ -425,7 +448,16 @@ getName();
 ```
 
 > 可能会有人觉得最后输出的结果是 1。但是 getName 是一个变量，因此这个变量的声明也将提升到顶部，而变量的**赋值依然保留在原来的位置**。需要注意的是，函数优先，虽然函数声明和变量声明都会被提升，但是函数会首先被提升，然后才是变量，上述之所以输出2，是因为之后的变量提升覆盖了之前的函数提升。
-
+```javascript
+var getName=function(){	//匿名函数，只会提升变量getName
+  console.log(2);
+}
+function getName(){
+  console.log(1);
+}
+getName();
+//结果为2
+```
 ----
 
 再来些例子
@@ -464,7 +496,7 @@ var test5="test5_1";
 
 ### 严格模式
 
-> 消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为;
+> 为消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为
 
 ```javascript
 "use strict";
@@ -481,8 +513,8 @@ function myFunction() {
 x = 3.14;       // 不报错 
 myFunction();
 function myFunction() {
-   "use strict";
-    y = 3.14;   // 报错 (y 未定义)
+   "use strict";	//函数内启用严格模式
+    y = 3.14;   	//报错 (y 未定义)
 }
 ```
 
@@ -491,7 +523,7 @@ function myFunction() {
 ```html
 <a href="javascript:void(0)">单击此处什么也不会发生</a>
 <-- void()仅仅是代表不返回任何值，但是括号内的表达式还是要运行 -->
-<a href="javascript:void(alert('Warning!!!'))">点我后显示警告信息</a>
+<a href="javascript:void(alert('Warning!!!'))">点我后会显示警告信息</a>
 ```
 > href="#"与href="javascript:void(0)"的区别
 
