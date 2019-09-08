@@ -118,7 +118,7 @@ npm prefix -g
 # 假设我们将 express安装到了全局环境，使用下面的命令可以将其链接到本地环境
 npm link express
 ```
-> 使用 npm link命令还可以将本地的包链接到全局。使用方法是在包目录**（package.json）** 所在目录)中运行命令 `npm link` ，如果项目不再需要该模块，可以在项目目录内使用npm unlink命令，删除符号链接。
+> 使用 npm link命令还可以将本地的包链接到全局。使用方法是在包目录**package.json** 所在目录中运行命令 `npm link` ，如果项目不再需要该模块，可以在项目目录内使用npm unlink命令，删除符号链接。
 
 #### npm常用命令
 

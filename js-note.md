@@ -2,18 +2,18 @@
 ### 判断对象是否为数组
 
 ```javascript
-var friends=new Array();
-friends[0]="Alice";
-friends[1]="Bob";
+var friends = new Array();
+friends[0] = "Alice";
+friends[1] = "Bob";
 // 判断是否支持该方法
 if (Array.isArray) {
     if(Array.isArray(friends)) {
-        document.write("该对象是一个数组。") ;
+        document.write("该对象是一个数组。");
     }
 }
 // 或者
 if (friends instanceof Array) {
-    document.write("该对象是一个数组。") ;
+    document.write("该对象是一个数组。");
 }
 
 ```
@@ -90,7 +90,7 @@ test(1,2);  //输出 "test arg2 + 1"
 
 ```javascript
 function test(arg1) {
-    for(var i=0; i<arguments.length; i++) {
+    for(var i = 0; i < arguments.length; i++) {
         console.log(arguments[i]);
     }
 }
@@ -181,10 +181,10 @@ Uncaught ReferenceError: v is not defined
 ```javascript
 // 传统定义函数方式
 function test () {
-  //
+  //some code
 }
 const test = function () {
-  //
+  //some code
 }
 // 使用箭头函数定义函数时可以省略 function 关键字
 const test = (...params) => {
@@ -192,6 +192,10 @@ const test = (...params) => {
 }
 // 该函数只有一个参数时可以简写成：
 const test = param => {
+  return param;
+}
+// 该函无参数时可以简写成：
+const test = () => {
   return param;
 }
 console.log(test('hello'));   // hello
@@ -218,30 +222,30 @@ console.log(test('hello'));   // hello
 ### + 运算符
 
 ```javascript
-var result1=5+5+"abc"; //结果将是"10abc"
-var result2= ""+5+5+"abc"; //结果将是"55abc"
+var result1 = 5 + 5 + "abc"; //结果将是"10abc"
+var result2 = "" + 5 + 5 + "abc"; //结果将是"55abc"
 ```
 
 1. 字符串和数字相加，数字转成字符串.
 ```javascript 
-var car="hello" + 1;    // 结果为hello1
+var car = "hello" + 1;    // 结果为hello1
 ```
 2. 数字和布尔值相加，布尔值 false 转成 0，true 转成 1
 ```javascript 
-var car=1 + true;    // 结果为2
-var bus=1 + false;    // 结果为1
+var car = 1 + true;    // 结果为2
+var bus = 1 + false;    // 结果为1
 ```
 3. 字符串与布尔值相加，布尔值转化成字符串。
 ```javascript 
-var car="hello" + true;    // 结果为hellotrue
+var car = "hello" + true;    // 结果为hellotrue
 ```
 4. 数字与 null(空值) 相加，null 转化为数字 0
 ```javascript 
-var car=null+3+4;    // 结果为7
+var car = null + 3 + 4;    // 结果为7
 ```
 5. 字符串与 null(空值) 相加，null 转化为字符串
 ```javascript 
-var car=null+"ok";    // 结果为nullok
+var car = null + "ok";    // 结果为nullok
 ```
 
 ### % 运算符
@@ -267,13 +271,13 @@ var z = (-7) % 3; // 结果为 -1
 switch(n)
 {
     case 1:
-        执行代码块 1
+        //执行代码块 1
         break;
     case 2:
-        执行代码块 2
+        //执行代码块 2
         break;
     default:
-        与 case 1 和 case 2 不同时执行的代码
+        //与 case 1 和 case 2 不同时执行的代码
 }
 ```
 
@@ -283,10 +287,10 @@ switch(n)
 ### for...in使用
 
 ```javascript
-// 环遍历对象的属性
-var person={fname:"John",lname:"Doe",age:25}; 
+// 循环遍历对象的属性
+var person = {fname:"John", lname:"Doe",age:25}; 
 for (x in person) {  // x为属性名，全局变量
-    txt=txt + person[x];
+    txt = txt + person[x];
 }
 // 遍历数组
 var nums = [1, 3, 5];
@@ -349,7 +353,7 @@ for (var i = 0; i < 10; i++) {
     // some code
 }
 console.log(i);	//10, i是全局的，包括循环体内与循环体外
-for (let j = 0; i < 10; j++) {
+for (let j = 0; j < 10; j++) {
     // some code
 }
 console.log(j);	//undefined，j是局部变量
@@ -391,7 +395,7 @@ console.log(NaN == NaN); 	//false
 console.log(NaN === NaN); 	//false
 ```
 
-3. 可以通过 isNaN() 方法来判断某个数值是否是NaN这个特殊的数，使用 isNaN() 方法会将传入的数值如果是非数值的会将其自动转换成数值类型，若能转换成数值类型，那么这个函数返回 false，若不能转换成数值类型，则这个数就是 NaN，即返回 true。
+3. 可以通过 `isNaN() `方法来判断某个数值是否是NaN这个特殊的数，使用 `isNaN() `方法会将传入的数值如果是非数值的会将其自动转换成数值类型，若能转换成数值类型，那么这个函数返回 false，若不能转换成数值类型，则这个数就是 NaN，即返回 true。
 
 ### try...catch
 
@@ -402,9 +406,9 @@ function message()
     try { 
         adddlert("Welcome guest!"); 
     } catch(err) { 
-        txt="本页有一个错误。\n\n"; 
-        txt+="错误描述：" + err.message + "\n\n"; 
-        txt+="点击确定继续。\n\n"; 
+        txt = "本页有一个错误。\n\n"; 
+        txt += "错误描述：" + err.message + "\n\n"; 
+        txt += "点击确定继续。\n\n"; 
         alert(txt); 
     } finally {
         alert('finally');
@@ -425,10 +429,11 @@ console.log(y);	//输出undefined
 var y = 7; // 初始化 y
 function show(){};
 //------------------------------------
-//上述代码其实类似于以下代码
-function show(){};
-var x = 5; // 初始化 x
-var y;	   //y被提升
+//上述代码其实类似于以下变量提升后的代码
+function show(){}; //函数优先提升至顶部
+var x; 
+var y; //y被提升
+x = 5; //x赋值
 console.log(x);	//输出5
 console.log(y);	//输出undefined
 y = 7; // y初始化部分，不会提升
@@ -437,7 +442,7 @@ y = 7; // y初始化部分，不会提升
 > **注意**：使用匿名函数的方式不存在函数提升，因为函数名称使用变量表示的，只存在变量提升
 
 ```javascript
-var getName=function(){	//匿名函数，只会提升变量getName
+var getName = function(){	//匿名函数，只会提升变量getName
   console.log(2);
 }
 function getName(){
@@ -449,14 +454,15 @@ getName();
 
 > 可能会有人觉得最后输出的结果是 1。但是 getName 是一个变量，因此这个变量的声明也将提升到顶部，而变量的**赋值依然保留在原来的位置**。需要注意的是，函数优先，虽然函数声明和变量声明都会被提升，但是函数会首先被提升，然后才是变量，上述之所以输出2，是因为之后的变量提升覆盖了之前的函数提升。
 ```javascript
-var getName=function(){	//匿名函数，只会提升变量getName
-  console.log(2);
-}
-function getName(){
+function getName(){ //函数优先提升
   console.log(1);
 }
+var getName; //变量提升
+getName = function(){	//匿名函数，只会提升变量getName，覆盖之前的getName()方法
+  console.log(2);
+}
 getName();
-//结果为2
+//结果为2，因为后面的匿名函数覆盖了先提升的函数
 ```
 ----
 
@@ -470,12 +476,12 @@ function test1(){//函数声明方式创建函数
 
 test2();//报错，函数还不存在
 console.log(test2)//不会报错，变量提升只是提升变量的声明，并不会把赋值也提升上来，输出undefined
-var test2=function(){
+var test2 = function(){
     alert("测试2");
 };//使用函数表达式创建一个匿名函数(实际是以变量test3命名的函数)
 test2();//不会报错，已经创建函数
 
-var test3=function(){
+var test3 = function(){
     alert("测试3");
 }();//加了括号立即执行
 
@@ -486,11 +492,11 @@ function test4() {
 }
 console.log(test4); //12
 
-var test5="test5_1";
+var test5 = "test5_1";
 (function(){
     //js中的变量搜索顺序：找变量时，先找局部变量，如果没有局部变量；再找全局变量。
     alert(test5);//此时的test5为局部变量的提升，undefined
-    var test5="test5_2";
+    var test5 = "test5_2";
 })();
 ```
 
